@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librería Malisia</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="libro.css?v=052">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Librería Malisia</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Buscar <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contacto</a>
+                </li>
+
+        </div>
+    </nav>
+
+
+    <div class="container my-5">
+        <div style="display: flex;
+        justify-content: center;
+        align-items: center;">
+            <form class="form-inline my-5">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+        <div id="app" class="row row-cols-1 row-cols-md-3"></div>
+    </div>
+
+
+
+
+    <script>
+        //https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
+        //AIzaSyBRTUHed5siMGRCTgopqNzmeSeJB9vg7Qc api de google
+        // https://www.googleapis.com/books/v1/volumes?q=BAILANDO CON LOS OSOS+inauthor:FERNANDO KRAPP&key=AIzaSyBRTUHed5siMGRCTgopqNzmeSeJB9vg7Qc
+        let spreadsheetId = "1NsgGflWm6XQkyc_gqB7U7-enc9wFqryBCszAql3GX_Q";
+        let sheetName = "ordenados por editorial";
+        let cellRange = "A:E";
+        let yourAPIKey = "AIzaSyDlFnRuSqglVx5mBspiUkhNDMMwu4gVhXc";
+
+        let linkSheet = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheetId + '/values/' + sheetName + '!' + cellRange + '?key=' + yourAPIKey;
+
+
+        function consultarStock(numero) {
+
+            getData(linkSheet)
+                .then((respuesta) => {
+                    let libros = respuesta.values;
+                    console.log(libros);
+                    let datosJuntos = [];
+                    libros.forEach((dato, index) => {
+                        if (index < 5 + numero) {
+                            datosJuntos = {
+                                titulo: dato[0],
+                                editorial: dato[1],
+                                autor: dato[2],
+                                stock: dato[3],
+                                otro: dato[4],
+                                id: index
+                            };
+                            //$("#app").append(contruirLibros(datosJuntos)); construirLibro3D
+                            $("#app").append(construirLibro3D(datosJuntos));
+
+                            consultarApiGoogle(datosJuntos);
+                        }
+                    });
+                    //   console.log(datosJuntos);
+                    $(window).scroll(function() {
+                        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                            console.log("llegó al final de la página");
+                            //    consultarStock(10);
+                        }
+                    });
+                })
+                .catch(function(error) {
+                    console.error(error);
+                });
+        }
+
+        consultarStock(5);
+
+
+        function construirLibro3D(datos) {
+
+            return `
+            <div class="col mb-4" style="display: flex;
+            justify-content: center;
+            align-items: center;">
+            <div class="book">
+                <div class="back"></div>
+                <div class="page6"><div id="mas_datos_${datos.id}" class="container mt-4"></div></div>
+                <div class="page5"></div>
+                <div class="page4"></div>
+                <div class="page3"></div>
+                <div class="page2"></div>
+                <div class="page1"></div>
+                <div class="front">
+                    <div class="container mt-4">
+                            <h5 class="card-title text-white ">${datos.titulo}</h5>
+                            <h5 class="card-title  text-white">${datos.autor}</h5>
+                            <p class="card-text  text-white">${datos.editorial}</p>
+                            <span class="badge badge-dark">Stock: ${datos.stock}</span>
+                        </div>
+                            </div>                           
+            </div>
+            </div>
+            
+            `;
+
+        }
+
+        function contruirLibros(datos) {
+            return `
+            <div class="col mb-4">
+                    <div class="card h-100">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${datos.titulo}</h5>
+                            <h5 class="card-title">${datos.autor}</h5>
+                            <p class="card-text">${datos.editorial}</p>
+                            <span class="badge badge-dark">Stock: ${datos.stock}</span>
+                            <div id="mas_datos_${datos.id}"
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function consultarApiGoogle(datos) {
+            //https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
+            let yourAPIKey = "AIzaSyBRTUHed5siMGRCTgopqNzmeSeJB9vg7Qc";
+            let link = 'https://www.googleapis.com/books/v1/volumes?q=' + datos.titulo + '+inauthor:' + datos.autor + '&key=' + yourAPIKey;
+
+            getData(link)
+                .then((respuesta) => {
+                    console.log(respuesta);
+                    if (respuesta.items != undefined) {
+
+
+                        let paginas = respuesta.items[0].volumeInfo.pageCount;
+                        let fecha = respuesta.items[0].volumeInfo.publishedDate;
+                        let idioma = respuesta.items[0].volumeInfo.language;
+                        let masInfo = respuesta.items[0].volumeInfo.previewLink;
+
+
+                        if (paginas != '') {
+                            $("#mas_datos_" + datos.id).append(`<p class="card-text">Cantidad de páginas: ${paginas}</p>`);
+                        }
+                        if (fecha != '') {
+                            $("#mas_datos_" + datos.id).append(`<p class="card-text">Fecha de publicación: ${fecha}</p>`);
+                        }
+                        if (idioma != '') {
+                            $("#mas_datos_" + datos.id).append(`<p class="card-text">Idioma: ${idioma}</p>`);
+                        }
+
+                        $("#mas_datos_" + datos.id).append(`<p class="card-text"><a href="${masInfo}" target="_blank" rel="noopener noreferrer">Más Información</a></p>`);
+                    } else {
+                        $("#mas_datos_" + datos.id).append(`<p class="card-text">Sin datos</p> `);
+
+                    }
+
+                })
+                .catch(function(error) {
+                    console.error(error);
+                });
+
+        }
+
+        async function getData(url = "") {
+            let response = await fetch(url);
+            let data = await response.json();
+            return data;
+        }
+    </script>
+
+
+</body>
+
+</html>
