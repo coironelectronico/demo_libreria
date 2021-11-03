@@ -1,120 +1,272 @@
-body {
-    /*  width: 100%;
+    body {
+        /*  width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     perspective: 1200px;
     background: #ccc; */
-}
-
-.book {
-    transform-style: preserve-3d;
-    position: relative;
-    height: 300px;
-    cursor: pointer;
-    backface-visibility: visible;
-    margin-left: -41%
-}
-
-.front,
-.back,
-.page1,
-.page2,
-.page3,
-.page4,
-.page5,
-.page6 {
-    transform-style: preserve-3d;
-    position: absolute;
-    width: 200px;
-    height: 100%;
-    top: 0;
-    left: 0;
-    transform-origin: left center;
-    transition: transform .5s ease-in-out, box-shadow .35s ease-in-out;
-}
-
-.front,
-.back {
-    background: #ff0095;
-}
-
-.front,
-.page1,
-.page3,
-.page5 {
-    border-bottom-right-radius: .5em;
-    border-top-right-radius: .5em;
-}
-
-.back,
-.page2,
-.page4,
-.page6 {
-    border-bottom-right-radius: .5em;
-    border-top-right-radius: .5em;
-}
-
-.page1 {
-    background: #fffbec;
-}
-
-.page2 {
-    background: #fffbec;
-}
-
-.page3 {
-    background: #fffbec;
-}
-
-.page4 {
-    background: #fffbec;
-}
-
-.page5 {
-    background: #fffbec;
-}
-
-.page6 {
-    background: #fffbec;
-}
-
-.book:hover .front {
-    transform: rotateY(-160deg) scale(1.1);
-    box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
-}
-
-.book:hover .page1 {
-    transform: rotateY(-150deg) scale(1.1);
-    box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
-}
-
-.book:hover .page2 {
-    transform: rotateY(-30deg) scale(1.1);
-    box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
-}
-
-.book:hover .page3 {
-    transform: rotateY(-140deg) scale(1.1);
-    box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
-}
-
-.book:hover .page4 {
-    transform: rotateY(-40deg) scale(1.1);
-    box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
-}
-
-.book:hover .page5 {
-    transform: rotateY(-130deg) scale(1.1);
-    box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
-}
-
-.book:hover .page6 {
-    transform: rotateY(-50deg) scale(1.1);
-    box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
-}
-
-.book:hover .back {
-    transform: rotateY(-20deg) scale(1.1);
-}
+        color: white;
+    }
+    
+    .book {
+        transform-style: preserve-3d;
+        position: relative;
+        height: 300px;
+        /*     cursor: pointer; */
+        backface-visibility: visible;
+        margin-left: -41%;
+        z-index: 98;
+    }
+    
+    .front,
+    .back,
+    .page1,
+    .page2,
+    .page3,
+    .page4,
+    .page5,
+    .page6 {
+        transform-style: preserve-3d;
+        position: absolute;
+        width: 200px;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transform-origin: left center;
+        transition: transform .5s ease-in-out, box-shadow .35s ease-in-out;
+    }
+    
+    .front,
+    .back {
+        background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
+    }
+    
+    .front,
+    .page1,
+    .page3,
+    .page5 {
+        border-bottom-right-radius: .5em;
+        border-top-right-radius: .5em;
+    }
+    
+    .back,
+    .page2,
+    .page4,
+    .page6 {
+        border-bottom-right-radius: .5em;
+        border-top-right-radius: .5em;
+    }
+    
+    .page1 {
+        background: #fffbec;
+    }
+    
+    .page2 {
+        background: #fffbec;
+    }
+    
+    .page3 {
+        background: #fffbec;
+    }
+    
+    .page4 {
+        background: #fffbec;
+    }
+    
+    .page5 {
+        background: #fffbec;
+    }
+    
+    .page6 {
+        background: #fffbec;
+    }
+    
+    .book:focus .front {
+        transform: rotateY(-160deg) scale(1.1);
+        box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+    }
+    
+    .book:focus .page1 {
+        transform: rotateY(-150deg) scale(1.1);
+        box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+    }
+    
+    .book:focus .page2 {
+        transform: rotateY(-30deg) scale(1.1);
+        box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+    }
+    
+    .book:focus .page3 {
+        transform: rotateY(-140deg) scale(1.1);
+        box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+    }
+    
+    .book:focus .page4 {
+        transform: rotateY(-40deg) scale(1.1);
+        box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+    }
+    
+    .book:focus .page5 {
+        transform: rotateY(-130deg) scale(1.1);
+        box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+    }
+    
+    .book:focus .page6 {
+        transform: rotateY(-50deg) scale(1.1);
+        box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+        z-index: 100;
+    }
+    
+    .book:focus .back {
+        transform: rotateY(-20deg) scale(1.1);
+    }
+    /* BORRARRR  */
+    /**
+ * The CSS in this file is for styling the demo page,
+ * Meny's critical styles (such as transforms) are applied
+ * via JavaScript.
+ *
+ * See the documentation here: https://github.com/hakimel/meny#meny
+ *
+ * @author Hakim El Hattab | http://hakim.se
+ */
+    
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    html,
+    body {
+        height: 100%;
+    }
+    
+    body {
+        background-color: #222;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGklEQVQIW2NkYGD4D8SMQAwGcAY2AbBKDBUAVuYCBQPd34sAAAAASUVORK5CYII=);
+        background-repeat: repeat;
+        /*   font-family: 'Lato', Helvetica, sans-serif;
+    font-size: 16px;
+    color: #222;*/
+    }
+    
+    a {
+        color: #c2575b;
+        text-decoration: none;
+        -webkit-transition: 0.15s color ease;
+        -moz-transition: 0.15s color ease;
+        -ms-transition: 0.15s color ease;
+        -o-transition: 0.15s color ease;
+        transition: 0.15s color ease;
+    }
+    
+    a:hover {
+        color: #f76f76;
+    }
+    /* waves 
+https://codepen.io/goodkatz/pen/LYPGxQz
+*/
+    
+    @import url(//fonts.googleapis.com/css?family=Lato:300:400);
+    h1 {
+        font-family: 'Lato', sans-serif;
+        font-weight: 300;
+        letter-spacing: 2px;
+        font-size: 48px;
+    }
+    
+    .header {
+        position: relative;
+        text-align: center;
+        background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
+        color: white;
+    }
+    
+    .logo {
+        width: 50px;
+        fill: white;
+        padding-right: 15px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .inner-header {
+        height: 65vh;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .flex {
+        /*Flexbox for containers*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .waves {
+        position: relative;
+        width: 100%;
+        height: 15vh;
+        margin-bottom: -7px;
+        /*Fix for safari gap*/
+        min-height: 100px;
+        max-height: 150px;
+    }
+    
+    .content {
+        position: relative;
+        height: 20vh;
+        text-align: center;
+        background-color: white;
+    }
+    /* Animation */
+    
+    .parallax>use {
+        animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+    }
+    
+    .parallax>use:nth-child(1) {
+        animation-delay: -2s;
+        animation-duration: 7s;
+    }
+    
+    .parallax>use:nth-child(2) {
+        animation-delay: -3s;
+        animation-duration: 10s;
+    }
+    
+    .parallax>use:nth-child(3) {
+        animation-delay: -4s;
+        animation-duration: 13s;
+    }
+    
+    .parallax>use:nth-child(4) {
+        animation-delay: -5s;
+        animation-duration: 20s;
+    }
+    
+    @keyframes move-forever {
+        0% {
+            transform: translate3d(-90px, 0, 0);
+        }
+        100% {
+            transform: translate3d(85px, 0, 0);
+        }
+    }
+    /*Shrinking for mobile*/
+    
+    @media (max-width: 768px) {
+        .waves {
+            height: 40px;
+            min-height: 40px;
+        }
+        .content {
+            height: 30vh;
+        }
+        h1 {
+            font-size: 24px;
+        }
+    }
