@@ -5,7 +5,7 @@
  let spreadsheetId = "1NsgGflWm6XQkyc_gqB7U7-enc9wFqryBCszAql3GX_Q";
  let sheetName = "ordenados por editorial";
  let cellRange = "A:E";
- let yourAPIKey = "AIzaSyDlFnRuSqglVx5mBspiUkhNDMMwu4gVhXc";
+ let yourAPIKey = environment.sheet_api_key;
 
  let linkSheet = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheetId + '/values/' + sheetName + '!' + cellRange + '?key=' + yourAPIKey;
 
