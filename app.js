@@ -135,7 +135,7 @@
      <span class="sr-only">Loading...</span>
    </div>`);
      //https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
-     let yourAPIKey = "AIzaSyBRTUHed5siMGRCTgopqNzmeSeJB9vg7Qc";
+     let yourAPIKey = environment.book_api_key;
      let link = 'https://www.googleapis.com/books/v1/volumes?q=' + datos.titulo + '+inauthor:' + datos.autor + '&key=' + yourAPIKey;
 
      getData(link)
